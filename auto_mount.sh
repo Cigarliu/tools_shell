@@ -1,9 +1,19 @@
 #!/bin/bash
 #This script will automatically mount the USB drive . script by cigar
 
+# read the USB drive name 
+
+getopts ":d:" opt
+case $opt in
+d)
+    USB_DRIVE=$OPTARG ;;
+
+esac
+
+
 
 #Check if the USB is connected
-if [ -e /dev/sda ]; then
+if [ -e $USB_DRIVE ]; then
     echo "USB is connected"
     #Check if the USB is already mounted
     if [ -e /mnt/usb ]; then
@@ -18,7 +28,7 @@ if [ -e /dev/sda ]; then
             echo "USB is not mounted"
             # create mount point
             mkdir /mnt/usb
-            
+
             #Mount the USB
             mount /dev/sda /mnt/usb
             echo "USB is mounted"
